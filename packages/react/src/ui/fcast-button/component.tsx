@@ -19,10 +19,13 @@ export interface FCastButtonState {
 }
 
 /** @experimental */
-export interface FCastButtonProps extends UIComponentProps<'button', FCastButtonState>, FCastExtensionProps {}
+export interface FCastButtonProps extends UIComponentProps<'button', FCastButtonState>, FCastExtensionProps {
+  /** Keep an unavailable control visible and disabled. */
+  showUnavailable?: boolean | undefined;
+}
 
 /**
- * FCast control that registers a sender-backed player extension. Place it beside CastButton and AirPlayButton.
+ * FCast control that registers a sender-backed player extension. It can be used directly or in the packaged cast menu.
  *
  * @experimental
  */
@@ -30,7 +33,7 @@ export const FCastButton = forwardRef(function FCastButton(
   props: FCastButtonProps,
   forwardedRef: ForwardedRef<HTMLButtonElement>
 ) {
-  if (!props.sender) return null;
+  if (!props.sender && !props.showUnavailable) return null;
 
   return <ActiveFCastButton {...props} forwardedRef={forwardedRef} />;
 });
@@ -39,6 +42,7 @@ function ActiveFCastButton({
   sender,
   src,
   contentType,
+  showUnavailable,
   disabled,
   render,
   className,
@@ -66,6 +70,7 @@ function ActiveFCastButton({
     deviceName: snapshot.deviceName,
     disabled:
       !!disabled ||
+      (!sender && !!showUnavailable) ||
       !extension.enabled ||
       snapshot.connection === 'connecting' ||
       (snapshot.connection !== 'connected' && snapshot.availability !== 'available'),
@@ -87,7 +92,7 @@ function ActiveFCastButton({
     },
   });
 
-  if (state.availability === 'unsupported' && state.connection !== 'connected') return null;
+  if (!showUnavailable && state.availability === 'unsupported' && state.connection !== 'connected') return null;
 
   return renderElement(
     'button',

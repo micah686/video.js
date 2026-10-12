@@ -14,9 +14,9 @@ apis:
 import FrameworkCase from '@/components/docs/FrameworkCase.astro';
 import DocsLink from '@/components/docs/DocsLink.astro';
 
-The FCast extension routes player controls to a receiver through an application-provided bridge. The <DocsLink slug="reference/components/fcast-button">FCastButton</DocsLink> registers the extension inside a player and supplies its casting control. Google Cast and AirPlay remain separate controls. See <DocsLink slug="guides/casting">Casting</DocsLink> for player setup.
+The FCast extension routes player controls to a receiver through an application-provided bridge. The <DocsLink slug="reference/components/fcast-button">FCastButton</DocsLink> registers the extension inside a player and supplies its casting control. Google Cast and AirPlay remain separate options in the cast menu. See <DocsLink slug="guides/casting">Casting</DocsLink> for player setup.
 
-Browsers cannot perform FCast's mDNS discovery or open its native TCP transport. `@videojs/fcast` defines the browser-facing `FCastBridge` interface; it does not include a bridge, device picker, discovery service, or protocol transport. An application supplies an implementation backed by a native host or companion service. Without one, the FCast button is hidden.
+Browsers cannot perform FCast's mDNS discovery or open its native TCP transport. `@videojs/fcast` defines the browser-facing `FCastBridge` interface; it does not include a bridge, device picker, discovery service, or protocol transport. An application supplies an implementation backed by a native host or companion service. Without one, the FCast button is hidden unless `showUnavailable` is enabled on the button.
 
 ## Import
 

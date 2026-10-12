@@ -4,7 +4,11 @@ import { FCastExtension, type FCastSender } from '@videojs/fcast';
 
 import { PlayerExtensionElement } from '../../extensions/player-extension-element';
 
-/** FCast control that registers a sender-backed player extension beside the Cast and AirPlay buttons. @experimental */
+/**
+ * FCast control that registers a sender-backed player extension. It can be used directly or in the packaged cast menu.
+ *
+ * @experimental
+ */
 export class FCastButtonElement extends PlayerExtensionElement<FCastExtension> {
   static readonly tagName = 'media-fcast-button';
 
@@ -12,9 +16,11 @@ export class FCastButtonElement extends PlayerExtensionElement<FCastExtension> {
     src: { type: String },
     contentType: { type: String, attribute: 'content-type' },
     disabled: { type: Boolean },
+    showUnavailable: { type: Boolean, attribute: 'show-unavailable' },
   } satisfies PropertyDeclarationMap;
 
   disabled = false;
+  showUnavailable = false;
   #controller: AbortController | null = null;
 
   protected createExtension(): FCastExtension {
@@ -94,8 +100,14 @@ export class FCastButtonElement extends PlayerExtensionElement<FCastExtension> {
     applyElementProps(this, {
       'aria-label': label,
       'aria-disabled': this.#isDisabled() ? 'true' : undefined,
-      hidden: !this.sender || (availability === 'unsupported' && connection !== 'connected') ? '' : undefined,
-      'data-hidden': !this.sender || (availability === 'unsupported' && connection !== 'connected') ? '' : undefined,
+      hidden:
+        (!this.sender || (availability === 'unsupported' && connection !== 'connected')) && !this.showUnavailable
+          ? ''
+          : undefined,
+      'data-hidden':
+        (!this.sender || (availability === 'unsupported' && connection !== 'connected')) && !this.showUnavailable
+          ? ''
+          : undefined,
       'data-fcast-state': connection,
       'data-availability': availability,
     });
@@ -106,6 +118,7 @@ export class FCastButtonElement extends PlayerExtensionElement<FCastExtension> {
 
     return (
       this.disabled ||
+      (!this.sender && this.showUnavailable) ||
       !this.extension.enabled ||
       connection === 'connecting' ||
       (connection !== 'connected' && availability !== 'available')

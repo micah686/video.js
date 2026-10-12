@@ -1,11 +1,9 @@
 import * as $ from '@videojs/core/vjsc';
 import type { PropsOf } from 'vjsc/components';
 
-import { AirPlayButton } from '../../../../components/buttons/airplay-button';
 import { ButtonTooltip } from '../../../../components/buttons/button-tooltip';
 import { CaptionsButton } from '../../../../components/buttons/captions-button';
-import { CastButton } from '../../../../components/buttons/cast-button';
-import { FCastButton, type FCastButtonProps } from '../../../../components/buttons/fcast-button';
+import type { FCastButtonProps } from '../../../../components/buttons/fcast-button';
 import { FullscreenButton } from '../../../../components/buttons/fullscreen-button';
 import { PiPButton } from '../../../../components/buttons/pip-button';
 import { PlayButton } from '../../../../components/buttons/play-button';
@@ -13,6 +11,7 @@ import { VolumePopover } from '../../../../components/menus/volume-popover';
 import { TimeSlider } from '../../../../components/sliders/time-slider';
 import timeStyles from '../../../../styles/display/time.styles';
 import controlsStyles from '../../../../styles/layout/controls.styles';
+import { CastMenu } from '../../../shared/video/menus/cast-menu';
 import { VideoSettingsMenu } from '../../../shared/video/menus/settings-menu';
 import styles from './controls.styles';
 
@@ -49,15 +48,7 @@ export function NeutralVideoControls({ renderThumbnail, fcast }: NeutralVideoCon
             </ButtonTooltip>
             <VideoSettingsMenu />
             <$.Controls.Group className={styles.trailing}>
-              <ButtonTooltip side="top">
-                <CastButton />
-              </ButtonTooltip>
-              <ButtonTooltip side="top">
-                <FCastButton {...fcast} />
-              </ButtonTooltip>
-              <ButtonTooltip side="top">
-                <AirPlayButton />
-              </ButtonTooltip>
+              <CastMenu fcast={fcast} />
               <ButtonTooltip side="top">
                 <PiPButton />
               </ButtonTooltip>

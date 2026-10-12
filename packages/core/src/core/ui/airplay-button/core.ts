@@ -15,6 +15,8 @@ export interface AirPlayButtonProps {
   label?: Text | string | ((state: AirPlayButtonState) => Text | string) | undefined;
   /** Whether the button is disabled. */
   disabled?: boolean | undefined;
+  /** Keep the button visible while AirPlay is unavailable. */
+  showUnavailable?: boolean | undefined;
 }
 
 export interface AirPlayButtonState extends ButtonState {
@@ -33,6 +35,7 @@ export class AirPlayButtonCore {
   static readonly defaultProps: NonNullableObject<AirPlayButtonProps> = {
     label: '',
     disabled: false,
+    showUnavailable: false,
   };
 
   readonly state = createState<AirPlayButtonState>({
@@ -89,7 +92,7 @@ export class AirPlayButtonCore {
       state: media.remotePlaybackState,
       availability,
       disabled: this.#props.disabled || availability !== 'available',
-      hidden: availability !== 'available',
+      hidden: availability !== 'available' && !this.#props.showUnavailable,
     });
     this.state.patch({ label: resolveText(this.getLabel(this.state.current)) });
 

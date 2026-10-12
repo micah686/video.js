@@ -5,6 +5,7 @@ export default defineComponent<{
   sender?: unknown;
   src?: string | undefined;
   contentType?: string | undefined;
+  showUnavailable?: boolean | undefined;
 }>({
   name: 'FCastButton',
 });

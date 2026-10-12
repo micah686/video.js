@@ -9,7 +9,7 @@ stability: unstable
 import FrameworkCase from '@/components/docs/FrameworkCase.astro';
 import DocsLink from '@/components/docs/DocsLink.astro';
 
-`FCastButton` registers an FCast player extension and displays a separate casting control beside Google Cast and AirPlay. It requires an `FCastSender` supplied by the application. The packaged video skins include the control; set `fcastSender` on the skin to activate it. See <DocsLink slug="reference/components/fcast">FCast</DocsLink> for the bridge contract and <DocsLink slug="guides/casting">Casting</DocsLink> for the setup and the [FCast SDK](https://docs.fcast.org/sdk/) for native sender libraries.
+`FCastButton` registers an FCast player extension and displays a separate casting control. It requires an `FCastSender` supplied by the application. The packaged video skins expose FCast as an option in the cast menu; set `fcastSender` on the skin to activate it. See <DocsLink slug="reference/components/fcast">FCast</DocsLink> for the bridge contract and <DocsLink slug="guides/casting">Casting</DocsLink> for the setup and the [FCast SDK](https://docs.fcast.org/sdk/) for native sender libraries.
 
 ## Import
 
@@ -47,7 +47,7 @@ Assign `sender` as a property on the element.
 
 The sender's `snapshot` supplies availability, connection, device name, playback position, duration, volume, mute state, speed, and optional buffering and ended states. The sender dispatches `change` whenever this snapshot changes. The button calls `prompt()` to choose a receiver and `disconnect()` to end a session. While connected, the extension forwards the player's load, play, pause, seek, volume, and speed actions to the sender.
 
-The button is hidden when no sender is assigned, or when the disconnected sender reports `unsupported`. It stays visible with `aria-disabled="true"` when no receiver is available. A connected session can be disconnected even if discovery later reports no available devices. The sender handles receiver discovery and the FCast protocol; the browser control uses its published state.
+The button is hidden when no sender is assigned, or when the disconnected sender reports `unsupported`, unless `showUnavailable` is true. In that case it stays visible with `aria-disabled="true"`. It also stays visible and disabled when no receiver is available. A connected session can be disconnected even if discovery later reports no available devices. The sender handles receiver discovery and the FCast protocol; the browser control uses its published state.
 
 | Input | React | HTML | Description |
 |---|---|---|---|
@@ -55,6 +55,7 @@ The button is hidden when no sender is assigned, or when the disconnected sender
 | Receiver URL | `src` prop | `src` attribute or property | Playable URL to send instead of the local media URL |
 | MIME type | `contentType` prop | `content-type` attribute or `contentType` property | MIME type sent with the load request |
 | Disabled | `disabled` prop | `disabled` attribute or property | Keeps the control focusable and prevents activation |
+| Show unavailable | `showUnavailable` prop | `show-unavailable` attribute or `showUnavailable` property | Keeps the control visible and disabled when no sender is assigned or the sender reports `unsupported` |
 
 ## Styling
 

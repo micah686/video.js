@@ -43,14 +43,14 @@ import basicUsageHtmlTs from "@/components/docs/demos/airplay-button/html/css/Ba
 
 ## Behavior
 
-Opens the WebKit AirPlay playback target picker and reflects session state. AirPlay is a WebKit-only feature, so the button reports `availability: "unsupported"` outside Safari (macOS and iOS). On supported platforms availability flips to `"available"` once Safari discovers at least one AirPlay receiver on the local network, and `"unavailable"` otherwise.
+Opens the WebKit AirPlay playback target picker and reflects session state. AirPlay is a WebKit-only feature, so the button reports `availability: "unsupported"` outside Safari (macOS and iOS). On supported platforms availability flips to `"available"` once Safari discovers at least one AirPlay receiver on the local network, and `"unavailable"` otherwise. Set `showUnavailable` (or the HTML `show-unavailable` attribute) to keep an unavailable or unsupported button visible and disabled, as used by the cast menu.
 
 <FrameworkCase frameworks={["html"]}>
-The button is hidden until `availability` is `"available"`: the element receives the native `hidden` attribute.
+The button is hidden until `availability` is `"available"` unless `show-unavailable` is set: the element receives the native `hidden` attribute.
 </FrameworkCase>
 
 <FrameworkCase frameworks={["react"]}>
-The button is hidden until `availability` is `"available"`: the component returns `null`.
+The button is hidden until `availability` is `"available"` unless `showUnavailable` is set: the component returns `null`.
 </FrameworkCase>
 
 An explicitly disabled, otherwise available button stays visible and focusable with `aria-disabled="true"` and `data-disabled`, but does not open the picker.
@@ -116,7 +116,7 @@ media-airplay-button[data-disabled] {
 ```
 </FrameworkCase>
 
-Unavailable and unsupported buttons are hidden automatically. No availability selector or extra hiding CSS is required.
+Unavailable and unsupported buttons are hidden automatically unless `showUnavailable` is enabled. With that option, they remain visible and receive `aria-disabled="true"` and `data-disabled`.
 
 ## Accessibility
 

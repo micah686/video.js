@@ -76,6 +76,16 @@ describe('AirPlayButtonCore', () => {
       expect(state.hidden).toBe(true);
     });
 
+    it('keeps unavailable AirPlay visible and disabled when requested', () => {
+      const core = new AirPlayButtonCore({ showUnavailable: true });
+
+      core.setMedia(createMediaState({ remotePlaybackAvailability: 'unavailable' }));
+      const state = core.getState();
+
+      expect(state.disabled).toBe(true);
+      expect(state.hidden).toBe(false);
+    });
+
     it('reflects connecting state', () => {
       const core = new AirPlayButtonCore();
 
