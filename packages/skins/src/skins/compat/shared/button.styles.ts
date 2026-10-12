@@ -25,5 +25,8 @@ export default styles({
     iconBase: {
       utilities: 'col-start-1 row-start-1 hidden size-4.5',
     },
+    iconGroup: {
+      utilities: 'relative grid size-5 shrink-0 place-items-center',
+    },
   },
 });

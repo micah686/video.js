@@ -25,9 +25,12 @@ import tooltipStyles from './tooltip.styles';
 
 function CastButton() {
   return (
-    <$.CastButton $render={Button} className={[castButtonStyles.root, castMenuStyles.button]}>
-      <CastEnterIcon className={[buttonStyles.icon, castButtonStyles.enterIcon]} />
-      <CastExitIcon className={[buttonStyles.icon, castButtonStyles.exitIcon]} />
+    <$.CastButton $render={Button} className={[castButtonStyles.root, castMenuStyles.item]}>
+      <Box className={buttonStyles.iconGroup}>
+        <CastEnterIcon className={[buttonStyles.icon, castButtonStyles.enterIcon]} />
+        <CastExitIcon className={[buttonStyles.icon, castButtonStyles.exitIcon]} />
+      </Box>
+      <Text>Chromecast</Text>
     </$.CastButton>
   );
 }
@@ -44,18 +47,13 @@ function CastMenu({
       </$.Menu.Trigger>
       <$.Menu.Popup keepMounted className={[popupStyles.popup, popupStyles.surface, menuStyles.popup]}>
         <$.Menu.Content className={[menuStyles.content, castMenuStyles.content]}>
-          <Box className={[menuStyles.item, castMenuStyles.item]}>
-            <CastButton />
-            <Text>Chromecast</Text>
-          </Box>
-          <Box className={[menuStyles.item, castMenuStyles.item]}>
-            <AirPlayButton className={castMenuStyles.button} showTooltip={false} showUnavailable />
+          <CastButton />
+          <AirPlayButton className={castMenuStyles.item} showTooltip={false} showUnavailable>
             <Text>AirPlay</Text>
-          </Box>
-          <Box className={[menuStyles.item, castMenuStyles.item]}>
-            <FCastButton {...fcast} className={castMenuStyles.button} showTooltip={false} showUnavailable />
+          </AirPlayButton>
+          <FCastButton {...fcast} className={castMenuStyles.item} showTooltip={false} showUnavailable>
             <Text>FCast</Text>
-          </Box>
+          </FCastButton>
         </$.Menu.Content>
       </$.Menu.Popup>
     </$.Menu.Root>

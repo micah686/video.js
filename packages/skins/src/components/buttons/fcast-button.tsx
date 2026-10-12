@@ -1,7 +1,7 @@
 import * as $ from '@videojs/core/vjsc';
 import type { FCastSender } from '@videojs/fcast';
 import { CastEnterIcon, CastExitIcon } from '@videojs/icons/vjsc';
-import { type ClassNameValue, Text } from 'vjsc/components';
+import { Box, type ClassNameValue, type VjscNode, Text } from 'vjsc/components';
 
 import type { SkinComponentDescription } from '../../meta';
 import buttonStyles from '../../styles/buttons/button.styles';
@@ -10,13 +10,14 @@ import { Button } from './button';
 
 export interface FCastButtonProps {
   className?: ClassNameValue;
+  children?: VjscNode;
   sender?: FCastSender | undefined;
   src?: string | undefined;
   contentType?: string | undefined;
   showUnavailable?: boolean | undefined;
 }
 
-export function FCastButton({ className, sender, src, contentType, showUnavailable }: FCastButtonProps = {}) {
+export function FCastButton({ className, children, sender, src, contentType, showUnavailable }: FCastButtonProps = {}) {
   return (
     <$.FCastButton
       $render={Button}
@@ -26,11 +27,14 @@ export function FCastButton({ className, sender, src, contentType, showUnavailab
       contentType={contentType}
       showUnavailable={showUnavailable}
     >
-      <CastEnterIcon className={[buttonStyles.icon, styles.enterIcon]} />
-      <CastExitIcon className={[buttonStyles.icon, styles.exitIcon]} />
-      <Text aria-hidden="true" className={styles.badge}>
-        F
-      </Text>
+      <Box className={buttonStyles.iconGroup}>
+        <CastEnterIcon className={[buttonStyles.icon, styles.enterIcon]} />
+        <CastExitIcon className={[buttonStyles.icon, styles.exitIcon]} />
+        <Text aria-hidden="true" className={styles.badge}>
+          F
+        </Text>
+      </Box>
+      {children}
     </$.FCastButton>
   );
 }

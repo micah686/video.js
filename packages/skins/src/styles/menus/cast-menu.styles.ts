@@ -9,13 +9,9 @@ export default styles({
     },
     item: {
       utilities: [
-        'w-full justify-start! py-1!',
-        'has-[[aria-disabled=true]]:opacity-50',
-        'has-[[hidden]]:hidden has-[[data-hidden]]:hidden',
+        'relative flex! w-full! h-auto! min-h-0! shrink-0 items-center! justify-start! gap-1.5! rounded-media-menu-item px-2 py-1 text-start',
+        'hover:highlight-media focus-visible:highlight-media focus-visible:outline-media-ring',
       ],
-    },
-    button: {
-      utilities: 'size-5!',
     },
   },
 });

@@ -1,7 +1,7 @@
 import * as $ from '@videojs/core/vjsc';
 import type { FCastSender } from '@videojs/fcast';
 import { CastEnterIcon, CastExitIcon } from '@videojs/icons/vjsc';
-import { type ClassNameValue, Text } from 'vjsc/components';
+import { Box, type ClassNameValue, type VjscNode, Text } from 'vjsc/components';
 
 import fcastStyles from '../../../styles/buttons/fcast-button.styles';
 import { Button } from './button';
@@ -16,6 +16,7 @@ export function FCastButton({
   contentType,
   showTooltip = true,
   showUnavailable,
+  children,
 }: {
   className?: ClassNameValue;
   sender?: FCastSender | undefined;
@@ -23,6 +24,7 @@ export function FCastButton({
   contentType?: string | undefined;
   showTooltip?: boolean;
   showUnavailable?: boolean | undefined;
+  children?: VjscNode;
 } = {}) {
   const button = (
     <$.FCastButton
@@ -33,11 +35,14 @@ export function FCastButton({
       contentType={contentType}
       showUnavailable={showUnavailable}
     >
-      <CastEnterIcon className={[buttonStyles.icon, fcastStyles.enterIcon]} />
-      <CastExitIcon className={[buttonStyles.icon, fcastStyles.exitIcon]} />
-      <Text aria-hidden="true" className={fcastStyles.badge}>
-        F
-      </Text>
+      <Box className={buttonStyles.iconGroup}>
+        <CastEnterIcon className={[buttonStyles.icon, fcastStyles.enterIcon]} />
+        <CastExitIcon className={[buttonStyles.icon, fcastStyles.exitIcon]} />
+        <Text aria-hidden="true" className={fcastStyles.badge}>
+          F
+        </Text>
+      </Box>
+      {children}
     </$.FCastButton>
   );
 

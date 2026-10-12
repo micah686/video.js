@@ -1,7 +1,7 @@
 import type { AirPlayButtonProps } from '@videojs/core';
 import * as $ from '@videojs/core/vjsc';
 import { AirPlayEnterIcon, AirPlayExitIcon } from '@videojs/icons/vjsc';
-import type { ClassNameValue } from 'vjsc/components';
+import { Box, type ClassNameValue, type VjscNode } from 'vjsc/components';
 
 import airplayButtonStyles from './airplay-button.styles';
 import { Button } from './button';
@@ -13,10 +13,12 @@ export function AirPlayButton({
   popupClassName,
   showTooltip = true,
   showUnavailable,
+  children,
 }: {
   className?: ClassNameValue;
   popupClassName?: ClassNameValue;
   showTooltip?: boolean;
+  children?: VjscNode;
 } & Pick<AirPlayButtonProps, 'showUnavailable'> = {}) {
   const button = (
     <$.AirPlayButton
@@ -24,8 +26,11 @@ export function AirPlayButton({
       className={[airplayButtonStyles.root, className]}
       showUnavailable={showUnavailable}
     >
-      <AirPlayEnterIcon className={[buttonStyles.icon, airplayButtonStyles.enterIcon]} />
-      <AirPlayExitIcon className={[buttonStyles.icon, airplayButtonStyles.exitIcon]} />
+      <Box className={buttonStyles.iconGroup}>
+        <AirPlayEnterIcon className={[buttonStyles.icon, airplayButtonStyles.enterIcon]} />
+        <AirPlayExitIcon className={[buttonStyles.icon, airplayButtonStyles.exitIcon]} />
+      </Box>
+      {children}
     </$.AirPlayButton>
   );
 

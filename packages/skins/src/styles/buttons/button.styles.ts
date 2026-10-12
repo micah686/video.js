@@ -25,6 +25,9 @@ export default styles({
     iconBase: {
       utilities: icon,
     },
+    iconGroup: {
+      utilities: 'relative grid size-5 shrink-0 place-items-center',
+    },
     icon: {
       utilities: [icon, 'transition-[opacity,scale] duration-media-base ease-out'],
     },

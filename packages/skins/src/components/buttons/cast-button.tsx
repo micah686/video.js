@@ -1,18 +1,21 @@
 import type { CastButtonProps as CoreProps } from '@videojs/core';
 import * as $ from '@videojs/core/vjsc';
 import { CastEnterIcon, CastExitIcon } from '@videojs/icons/vjsc';
-import type { Props } from 'vjsc/components';
+import { Box, type PropsWithChildren } from 'vjsc/components';
 
 import type { SkinComponentDescription } from '../../meta';
 import buttonStyles from '../../styles/buttons/button.styles';
 import styles from '../../styles/buttons/cast-button.styles';
 import { Button } from './button';
 
-export function CastButton({ className, ...props }: Props<CoreProps> = {}) {
+export function CastButton({ children, className, ...props }: PropsWithChildren<CoreProps> = {}) {
   return (
     <$.CastButton $render={Button} className={[styles.root, className]} {...props}>
-      <CastEnterIcon className={[buttonStyles.icon, styles.enterIcon]} />
-      <CastExitIcon className={[buttonStyles.icon, styles.exitIcon]} />
+      <Box className={buttonStyles.iconGroup}>
+        <CastEnterIcon className={[buttonStyles.icon, styles.enterIcon]} />
+        <CastExitIcon className={[buttonStyles.icon, styles.exitIcon]} />
+      </Box>
+      {children}
     </$.CastButton>
   );
 }

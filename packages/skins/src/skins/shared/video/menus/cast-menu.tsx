@@ -1,6 +1,6 @@
 import * as $ from '@videojs/core/vjsc';
 import { CastEnterIcon } from '@videojs/icons/vjsc';
-import { Box, Text } from 'vjsc/components';
+import { Text } from 'vjsc/components';
 
 import { AirPlayButton } from '../../../../components/buttons/airplay-button';
 import { Button } from '../../../../components/buttons/button';
@@ -19,18 +19,15 @@ export function CastMenu({ fcast }: { fcast?: FCastButtonProps | undefined } = {
       </$.Menu.Trigger>
       <$.Menu.Popup keepMounted className={[popupStyles.popup, popupStyles.surface, menuStyles.popup]}>
         <$.Menu.Content className={[menuStyles.content, castMenuStyles.content]}>
-          <Box className={[menuStyles.triggerItem, castMenuStyles.item]}>
-            <CastButton className={castMenuStyles.button} />
+          <CastButton className={castMenuStyles.item}>
             <Text>Chromecast</Text>
-          </Box>
-          <Box className={[menuStyles.triggerItem, castMenuStyles.item]}>
-            <AirPlayButton className={castMenuStyles.button} showUnavailable />
+          </CastButton>
+          <AirPlayButton className={castMenuStyles.item} showUnavailable>
             <Text>AirPlay</Text>
-          </Box>
-          <Box className={[menuStyles.triggerItem, castMenuStyles.item]}>
-            <FCastButton {...fcast} className={castMenuStyles.button} showUnavailable />
+          </AirPlayButton>
+          <FCastButton {...fcast} className={castMenuStyles.item} showUnavailable>
             <Text>FCast</Text>
-          </Box>
+          </FCastButton>
         </$.Menu.Content>
       </$.Menu.Popup>
     </$.Menu.Root>
