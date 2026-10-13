@@ -1,7 +1,7 @@
 import * as $ from '@videojs/core/vjsc';
 import type { FCastSender } from '@videojs/fcast';
 import { CastEnterIcon, CastExitIcon } from '@videojs/icons/vjsc';
-import { Box, type ClassNameValue, type VjscNode, Text } from 'vjsc/components';
+import { Box, type ClassNameValue, type VjscNode } from 'vjsc/components';
 
 import type { SkinComponentDescription } from '../../meta';
 import buttonStyles from '../../styles/buttons/button.styles';
@@ -30,9 +30,6 @@ export function FCastButton({ className, children, sender, src, contentType, sho
       <Box className={buttonStyles.iconGroup}>
         <CastEnterIcon className={[buttonStyles.icon, styles.enterIcon]} />
         <CastExitIcon className={[buttonStyles.icon, styles.exitIcon]} />
-        <Text aria-hidden="true" className={styles.badge}>
-          F
-        </Text>
       </Box>
       {children}
     </$.FCastButton>
